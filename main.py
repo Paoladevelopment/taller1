@@ -1,6 +1,7 @@
 import tsp_brute_force
 import tsp_simulated_annealing
 import random
+
 def menu_principal():
   print('Bienvenido!, selecciona entre las siguientes opciones:')
   while True:
@@ -11,7 +12,8 @@ def menu_principal():
     try:
       opt = int(input("Selecciona tu opción (1, 2 ó 3): "))
       if opt == 1:
-        print("opt 1 selected")
+        archivo = input()
+        read_file(archivo)
       elif opt == 2:
         menu_generador()
       elif opt == 3:
@@ -40,6 +42,31 @@ def generar_matriz_costo(num_ciudades):
       fila = [random.uniform(1, 100) for _ in range(num_ciudades)]
       distancias.append(fila)
   return distancias
+
+
+def read_file(file_name):
+  matriz = []
+
+  try:
+      with open(file_name, 'r') as archivo:
+          for linea in archivo:
+              numeros = linea.strip().split()
+              fila = [int(num) for num in numeros]
+              matriz.append(fila)
+      
+      if len(matriz) <= 10:
+        tsp_brute_force.tsp_bf_solver(matriz)
+        tsp_simulated_annealing.simulated_annealing(matriz, 1000, 0.99, 10000)
+      else: 
+        print("la longitud de la matriz no puede ser mayor a 10, escoja otro archivo o vaya queme otro computador")
+              
+  except FileNotFoundError:
+      print(f"El archivo {file_name} no fue encontrado.")
+      
+  except Exception as e:
+      print(f"Error al leer el archivo: {str(e)}")
+
+  return matriz
 
 
 menu_principal()
