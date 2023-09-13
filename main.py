@@ -2,6 +2,9 @@ import tsp_brute_force
 import tsp_simulated_annealing
 import random
 import time
+
+#Valentina Cobo Bastidas -202060174
+#Paola Andrea Domínguez Vélez -202059956
 def menu_principal():
   print('Bienvenido!, selecciona entre las siguientes opciones:')
   while True:
